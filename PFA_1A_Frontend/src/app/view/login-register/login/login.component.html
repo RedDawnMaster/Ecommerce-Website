@@ -1,0 +1,105 @@
+<section class="h-100 gradient-form" style="background-color: #eee">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center mb-5 pt-3">
+                  <a class="text-decoration-none">
+                    <span
+                      class="h1 text-uppercase text-main bg-subordinate px-2"
+                      >Product</span
+                    >
+                    <span
+                      class="h1 text-uppercase text-subordinate bg-main px-2 ml-n1"
+                      >Verse</span
+                    >
+                  </a>
+                </div>
+
+                <form>
+                  <div class="d-flex justify-content-between mb-2">
+                    <h6>Fill in your informations</h6>
+                    <h6 *ngIf="!validateCredentials" class="text-danger">
+                      Wrong credentials
+                    </h6>
+                  </div>
+
+                  <div class="form-floating mb-2">
+                    <input
+                      [ngStyle]="{
+                        'border-color': !validateEmail ? 'red' : ''
+                      }"
+                      [(ngModel)]="user.email"
+                      type="email"
+                      class="form-control"
+                      name="email"
+                      id="email"
+                      placeholder="name@example.com"
+                    />
+                    <label for="email" class="text-secondary">Email</label>
+                  </div>
+                  <div class="form-floating">
+                    <input
+                      [ngStyle]="{
+                        'border-color': !validatePassword ? 'red' : ''
+                      }"
+                      [(ngModel)]="user.password"
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      id="password"
+                      placeholder="Password"
+                    />
+                    <label for="password" class="text-secondary"
+                      >Password</label
+                    >
+                  </div>
+
+                  <div class="d-flex flex-column text-center mt-3">
+                    <button
+                      class="rounded text-light hover-effect btn-primary border-0 text-uppercase gradient-custom-2 mb-3"
+                      type="button"
+                      style="height: 40px"
+                      (click)="login()"
+                    >
+                      Login
+                    </button>
+                    <a class="text-muted mt-2 mb-5">Forgot password?</a>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-center pb-4 mt-3"
+                  >
+                    <p class="me-2 mt-2">Don't have an account?</p>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark text-uppercase"
+                      routerLink="../register"
+                    >
+                      Sign Up
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Discover a World of Amazing Products</h4>
+                <p class="small mb-0">
+                  Welcome to MultiShop, your one-stop destination for a wide
+                  range of high-quality products. Explore our extensive
+                  collection of electronics, fashion, home decor, beauty
+                  products, and much more. We strive to bring you the best
+                  selection at competitive prices.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

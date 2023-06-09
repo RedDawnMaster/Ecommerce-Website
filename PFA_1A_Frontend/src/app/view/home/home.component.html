@@ -1,0 +1,290 @@
+<!-- Carousel Start -->
+<div class="container-fluid mb-3">
+  <div class="row px-xl-5">
+    <div class="col-lg-8">
+      <div
+        id="carouselOffers"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3000"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselOffers"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselOffers"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselOffers"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div
+            *ngFor="let item of shopCarousel; let first = first"
+            [ngClass]="{ active: first }"
+            class="carousel-item"
+            style="height: 430px"
+          >
+            <img [src]="item.imgSrc" class="w-100" style="object-fit: cover" />
+            <div class="carousel-caption d-none d-md-block">
+              <h1
+                class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
+              >
+                {{ item.title }}
+              </h1>
+              <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
+                {{ item.paragraph }}
+              </p>
+              <a
+                class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp"
+                (click)="openShop()"
+                >{{ item.buttonString }}</a
+              >
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselOffers"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselOffers"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div
+        *ngFor="let item of slides; let first = first"
+        class="container position-relative offerContainer px-0"
+        [ngStyle]="{ 'margin-bottom': first ? '29px' : '' }"
+        style="height: 200px; margin-bottom: 29px"
+      >
+        <img
+          class="w-100 h-100"
+          [src]="item.imgSrc"
+          style="object-fit: cover"
+        />
+        <div class="offer">
+          <h6 class="text-white text-uppercase">{{ item.title }}</h6>
+          <h3 class="text-white mb-3">{{ item.paragraph }}</h3>
+          <a
+            *ngIf="first"
+            (click)="openShop()"
+            class="btn bg-main no-hover-btn-main"
+            >{{ item.buttonString }}</a
+          >
+          <a
+            *ngIf="!first"
+            href="#outlets"
+            class="btn bg-main no-hover-btn-main"
+            >{{ item.buttonString }}</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Carousel End -->
+<!-- Featured Start -->
+<div class="container-fluid pt-5">
+  <div class="row px-xl-5 pb-3">
+    <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+      <div
+        class="d-flex align-items-center bg-light mb-4"
+        style="padding: 30px"
+      >
+        <h1 class="fa fa-check fa-3x text-subordinate m-0 me-3"></h1>
+        <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+      <div
+        class="d-flex align-items-center bg-light mb-4"
+        style="padding: 30px"
+      >
+        <h1 class="fa fa-truck fa-3x text-subordinate m-0 me-3"></h1>
+        <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+      <div
+        class="d-flex align-items-center bg-light mb-4"
+        style="padding: 30px"
+      >
+        <h1 class="fa fa-exchange fa-3x text-subordinate m-0 me-3"></h1>
+        <h5 class="font-weight-semi-bold m-0">5-Day Return</h5>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
+      <div
+        class="d-flex align-items-center bg-light mb-4"
+        style="padding: 30px"
+      >
+        <h1
+          class="fa fa-volume-control-phone fa-3x text-subordinate m-0 me-3"
+        ></h1>
+        <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Featured End -->
+<!-- Products Start -->
+<div class="container-fluid pt-5 pb-3">
+  <h2
+    class="section-title-products position-relative text-uppercase mx-xl-5 mb-4"
+  >
+    <span class="pe-3">Featured Products</span>
+  </h2>
+  <div class="row px-xl-5">
+    <div
+      class="col-lg-3 col-md-4 col-sm-6 pb-1"
+      *ngFor="let product of featuredProducts"
+    >
+      <div class="product-item bg-light mb-4">
+        <div class="product-img position-relative overflow-hidden">
+          <img
+            class="img-fluid w-100"
+            [src]="product.image"
+            alt=""
+            style="height: 350px; width: 300px"
+          />
+          <div class="product-action">
+            <a
+              class="btn btn-outline-dark"
+              (click)="addToWishList(product.label)"
+              ><i class="fa fa-heart"></i
+            ></a>
+            <a class="btn btn-outline-dark" (click)="viewProduct(product)"
+              ><i class="fa fa-arrows-alt"></i
+            ></a>
+          </div>
+        </div>
+        <div class="product-details text-center py-4">
+          <a class="h6 text-decoration-none text-truncate text-dark">{{
+            product.label
+          }}</a>
+          <div class="d-flex align-items-center justify-content-center mt-2">
+            <h5 class="text-success">${{ product.price }}</h5>
+          </div>
+          <div class="d-flex align-items-center justify-content-center mb-1">
+            <ng-container *ngFor="let _ of getYellowStarsArray(product.stars)">
+              <small class="fa fa-star text-warning me-1"></small>
+            </ng-container>
+            <ng-container *ngFor="let _ of getEmptyStarsArray(product.stars)">
+              <small class="fa fa-star text-secondary me-1"></small>
+            </ng-container>
+            <small>({{ product.evaluationCount }})</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Products End -->
+<!-- Partners Start -->
+
+<!-- Partners End -->
+<!-- Outlets Start -->
+<div id="outlets" class="container-fluid pt-5 pb-3">
+  <h2
+    class="section-title-outlets position-relative text-uppercase mx-xl-5 mb-4"
+  >
+    <span class="pe-3">Our Outlets</span>
+  </h2>
+  <div class="row">
+    <div class="col-10 offset-1">
+      <div
+        id="carouselCities"
+        class="carousel slide"
+        data-bs-ride="carousel"
+        data-bs-interval="3000"
+      >
+        <div class="carousel-indicators">
+          <button
+            type="button"
+            data-bs-target="#carouselCities"
+            data-bs-slide-to="0"
+            class="active"
+            aria-current="true"
+            aria-label="Slide 1"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselCities"
+            data-bs-slide-to="1"
+            aria-label="Slide 2"
+          ></button>
+          <button
+            type="button"
+            data-bs-target="#carouselCities"
+            data-bs-slide-to="2"
+            aria-label="Slide 3"
+          ></button>
+        </div>
+        <div class="carousel-inner">
+          <div
+            *ngFor="let item of cityCarousel; let first = first"
+            [ngClass]="{ active: first }"
+            class="carousel-item"
+            style="height: 500px"
+          >
+            <img [src]="item.imgSrc" class="w-100" style="object-fit: cover" />
+            <div class="carousel-caption d-none d-md-block">
+              <h1
+                class="display-4 text-white mb-3 animate__animated animate__fadeInDown"
+              >
+                {{ item.title }}
+              </h1>
+              <p class="mx-md-5 px-5 animate__animated animate__bounceIn">
+                {{ item.paragraph }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselCities"
+          data-bs-slide="prev"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselCities"
+          data-bs-slide="next"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Outlets End -->

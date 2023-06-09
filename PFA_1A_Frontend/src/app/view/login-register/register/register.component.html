@@ -1,0 +1,175 @@
+<section class="h-100 gradient-form" style="background-color: #eee">
+  <div class="container h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body py-5 px-2 mx-md-4">
+                <div class="text-center mb-5 pt-3">
+                  <a class="text-decoration-none">
+                    <span
+                      class="h1 text-uppercase text-main bg-subordinate px-2"
+                      >Product</span
+                    >
+                    <span
+                      class="h1 text-uppercase text-subordinate bg-main px-2 ml-n1"
+                      >Verse</span
+                    >
+                  </a>
+                </div>
+                <form>
+                  <div class="d-flex justify-content-between mb-2">
+                    <h6>Fill in your informations</h6>
+                    <h6 *ngIf="!validateExistence" class="text-danger">
+                      Username or Email already exists
+                    </h6>
+                  </div>
+                  <div class="container px-0">
+                    <div class="row">
+                      <div class="form-floating mb-2 col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateUsername ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.username"
+                          name="username"
+                          type="text"
+                          class="form-control"
+                          id="username"
+                          placeholder="name@example.com"
+                        />
+                        <label for="username" class="text-secondary ms-2"
+                          >Username</label
+                        >
+                      </div>
+                      <div class="form-floating mb-2 col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateEmail ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.email"
+                          name="email"
+                          type="email"
+                          class="form-control"
+                          id="email"
+                          placeholder="name@example.com"
+                        />
+                        <label for="email" class="text-secondary ms-2"
+                          >Email</label
+                        >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-floating mb-2 col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateFirstName ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.firstName"
+                          name="firstname"
+                          type="text"
+                          class="form-control"
+                          id="firstname"
+                          placeholder="name@example.com"
+                        />
+                        <label for="firstname" class="text-secondary ms-2"
+                          >First name</label
+                        >
+                      </div>
+                      <div class="form-floating mb-2 col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateLastName ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.lastName"
+                          name="lastname"
+                          type="text"
+                          class="form-control"
+                          id="lastname"
+                          placeholder="name@example.com"
+                        />
+                        <label for="lastname" class="text-secondary ms-2"
+                          >Last name</label
+                        >
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="form-floating mb-2 col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validatePassword ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.password"
+                          name="password"
+                          type="password"
+                          class="form-control"
+                          id="password"
+                          placeholder="Password"
+                        />
+                        <label for="password" class="text-secondary ms-2"
+                          >Password</label
+                        >
+                      </div>
+                      <div class="form-floating col-6">
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateBirthDate ? 'red' : ''
+                          }"
+                          [(ngModel)]="user.birthDate"
+                          name="date"
+                          type="date"
+                          class="form-control"
+                          id="date"
+                          placeholder="name@example.com"
+                        />
+                        <label for="date" class="text-secondary ms-2"
+                          >Birth Date</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex flex-column text-center mt-3">
+                    <button
+                      class="rounded text-light hover-effect btn-primary border-0 text-uppercase gradient-custom-2 mb-3"
+                      type="button"
+                      style="height: 40px"
+                      (click)="register()"
+                    >
+                      Register
+                    </button>
+                  </div>
+
+                  <div
+                    class="d-flex align-items-center justify-content-center pb-4 mt-3"
+                  >
+                    <p class="me-2 mt-2">Already have an account?</p>
+                    <button
+                      type="button"
+                      class="btn btn-outline-dark text-uppercase"
+                      routerLink="../login"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">Discover a World of Amazing Products</h4>
+                <p class="small mb-0">
+                  Welcome to ProductVerse, your one-stop destination for a wide
+                  range of high-quality products. Explore our extensive
+                  collection of electronics, fashion, home decor, beauty
+                  products, and much more. We strive to bring you the best
+                  selection at competitive prices.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

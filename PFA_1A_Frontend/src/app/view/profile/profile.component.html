@@ -1,0 +1,265 @@
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img
+              src="../../../assets/img/profile.png"
+              alt="avatar"
+              class="rounded-circle img-fluid"
+              style="width: 100px; height: 100px"
+            />
+            <h5 class="my-3">{{ user.firstName + " " + user.lastName }}</h5>
+            <div class="d-flex justify-content-center mb-2">
+              <button type="button" class="btn btn-warning" (click)="update()">
+                Update
+              </button>
+              <button
+                type="button"
+                class="btn btn-outline-danger ms-1"
+                (click)="delete()"
+              >
+                Delete
+              </button>
+            </div>
+            <button *ngIf="!validateExistence" class="btn btn-danger">
+              Username or Email already exists
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">First name</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': !validateFirstName ? 'red' : ''
+                  }"
+                  [(ngModel)]="user.firstName"
+                  type="text"
+                  class="form-control"
+                  name="firstName"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Last name</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': !validateLastName ? 'red' : ''
+                  }"
+                  [(ngModel)]="user.lastName"
+                  type="text"
+                  class="form-control"
+                  name="lastName"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Username</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': !validateUsername ? 'red' : ''
+                  }"
+                  [(ngModel)]="user.username"
+                  type="text"
+                  class="form-control"
+                  name="username"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': !validateEmail ? 'red' : ''
+                  }"
+                  [(ngModel)]="user.email"
+                  type="email"
+                  class="form-control"
+                  name="email"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Birth Date</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': false ? 'red' : ''
+                  }"
+                  [value]="
+                    this.datePipe.transform(user.birthDate, 'yyyy-MM-dd')
+                  "
+                  type="text"
+                  class="form-control"
+                  name="birthDate"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Registration</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': false ? 'red' : ''
+                  }"
+                  [value]="
+                    this.datePipe.transform(user.creationDate, 'yyyy-MM-dd')
+                  "
+                  type="text"
+                  class="form-control"
+                  name="creationDate"
+                  disabled="true"
+                />
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-sm-2">
+                <p class="mb-0 mt-2">Total bought</p>
+              </div>
+              <div class="col-sm-9">
+                <input
+                  [ngStyle]="{
+                    'border-color': false ? 'red' : ''
+                  }"
+                  [(ngModel)]="'$' + user.totalBought"
+                  type="email"
+                  class="form-control text-success"
+                  name="email"
+                  disabled="true"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card mb-4 mb-md-0">
+              <div
+                class="card-title text-center bg-subordinate text-main text-uppercase"
+              >
+                My Orders
+              </div>
+              <div class="card-body">
+                <p
+                  class="text-center"
+                  *ngIf="orders === undefined || orders.length === 0"
+                >
+                  No orders yet
+                </p>
+                <table class="table no-wrap user-table mb-0">
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        Reference
+                      </th>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        Total
+                      </th>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        Order date
+                      </th>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        Delivery date
+                      </th>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        Delivered
+                      </th>
+                      <th
+                        scope="col"
+                        class="border-0 text-uppercase font-medium"
+                      >
+                        View
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of orders">
+                      <td>
+                        <span>
+                          {{ order.reference }}
+                        </span>
+                      </td>
+                      <td>
+                        <span class="text-success">${{ order.total }}</span>
+                      </td>
+                      <td>
+                        <span>{{
+                          this.datePipe.transform(order.orderDate, "yyyy-MM-dd")
+                        }}</span
+                        ><br />
+                      </td>
+                      <td>
+                        <span>{{
+                          this.datePipe.transform(
+                            order.deliveryDate,
+                            "yyyy-MM-dd"
+                          )
+                        }}</span
+                        ><br />
+                      </td>
+                      <td>
+                        <span *ngIf="order.delivered">Yes</span>
+                        <span *ngIf="!order.delivered">No</span>
+                      </td>
+                      <td>
+                        <button
+                          class="btn btn-primary"
+                          (click)="viewOrder(order)"
+                        >
+                          <i class="fa fa-arrow-right"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

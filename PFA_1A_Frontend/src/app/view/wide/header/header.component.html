@@ -1,0 +1,295 @@
+<!-- Topbar Start -->
+<div class="container-fluid">
+  <div
+    class="row align-items-center bg-light py-3 px-5 d-flex justify-content-between"
+  >
+    <div class="col-lg-6">
+      <a class="text-decoration-none">
+        <span class="h1 text-uppercase text-main bg-subordinate px-2"
+          >Product</span
+        >
+        <span class="h1 text-uppercase text-subordinate bg-main px-2 ml-n1"
+          >Verse</span
+        >
+      </a>
+    </div>
+    <div class="col-lg-6 text-end">
+      <p class="m-0">Customer Service</p>
+      <h5 class="m-0">productverse@support.gmail</h5>
+    </div>
+  </div>
+</div>
+<!-- Topbar End -->
+
+<!-- Navbar Start -->
+<div class="container-fluid bg-subordinate mb-5">
+  <div class="row px-lg-5 align-items-center">
+    <div class="col-lg-3 d-lg-block">
+      <a
+        #catbtn
+        class="btn no-hover-categorie rounded-0 d-flex align-items-center justify-content-between bg-main w-100"
+        data-bs-toggle="collapse"
+        href="#navbar-vertical"
+        aria-expanded="false"
+        style="height: 65px; padding: 0 30px"
+      >
+        <h6 class="text-subordinate me-5">
+          <i class="fa fa-bars m-2"></i>Categories
+        </h6>
+        <button
+          *ngIf="user !== undefined && user.role === 'ADMIN'"
+          type="button"
+          class="border-0 rounded btn-md no-hover-btn-subordinate bg-subordinate"
+          data-bs-toggle="modal"
+          data-bs-target="#modal2"
+          style="height: 30px; width: 30px"
+        >
+          <i class="fa fa-pencil-square-o text-main"></i>
+        </button>
+        <button
+          *ngIf="user !== undefined && user.role === 'ADMIN'"
+          type="button"
+          class="border-0 rounded no-hover-btn-subordinate bg-subordinate"
+          data-bs-toggle="modal"
+          data-bs-target="#modal1"
+          style="height: 30px; width: 30px"
+        >
+          <i class="fa fa-solid fa-plus text-main"></i>
+        </button>
+      </a>
+      <nav
+        class="collapse position-absolute navbar navbar-light align-items-start p-0 bg-light"
+        id="navbar-vertical"
+        style="z-index: 999"
+        [ngStyle]="{ 'width.px': catbtn.offsetWidth }"
+      >
+        <div class="navbar-nav w-100 ms-2">
+          <a
+            class="nav-item nav-link text-dark d-flex justify-content-between text-uppercase"
+            (click)="openCategorie('allCategories')"
+            >All categories
+            <div></div>
+          </a>
+          <a
+            *ngFor="let categorie of categories"
+            class="nav-item nav-link text-dark d-flex justify-content-between text-uppercase"
+            (click)="openCategorie(categorie.label)"
+            >{{ categorie.label }}
+            <div>
+              <button
+                *ngIf="user !== undefined && user.role === 'ADMIN'"
+                type="button"
+                class="btn btn-danger btn-sm"
+                style="margin-right: 35px"
+                (click)="deleteByLabel(categorie.label)"
+              >
+                <i class="fa fa-trash fa-solid"></i>
+              </button>
+            </div>
+          </a>
+        </div>
+      </nav>
+    </div>
+    <div class="col-lg-9">
+      <nav
+        class="navbar navbar-expand-lg bg-subordinate navbar-dark linkColor d-flex justify-content-between py-3 py-lg-0 px-0"
+      >
+        <div class="navbar-nav me-auto py-0">
+          <a routerLink="" class="nav-item nav-link active">Home</a>
+          <a (click)="openShop()" class="nav-item nav-link">Shop</a>
+          <a routerLink="about-us" class="nav-item nav-link">About Us</a>
+          <a
+            *ngIf="user !== undefined && user.role === 'ADMIN'"
+            routerLink="users"
+            class="nav-item nav-link"
+            >Users</a
+          >
+          <a
+            *ngIf="user !== undefined && user.role === 'ADMIN'"
+            routerLink="statistics"
+            class="nav-item nav-link"
+            >Statistics</a
+          >
+        </div>
+        <div
+          class="navbar-nav ms-auto py-0 d-none d-lg-block"
+          *ngIf="user === undefined || user.role !== 'ADMIN'"
+        >
+          <button
+            class="bg-main rounded border-0 me-2"
+            (click)="openWishList()"
+          >
+            <i class="fa fa-heart text-subordinate"></i>
+          </button>
+          <button class="bg-main rounded border-0 me-2" (click)="openCart()">
+            <i class="fa fa-shopping-cart text-subordinate"></i>
+          </button>
+        </div>
+        <div class="dropstart">
+          <button
+            class="bg-main rounded border-0 dropdown-toggle"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <i class="fa fa-user text-subordinate"></i>
+          </button>
+          <ul
+            class="dropdown-menu dropdown-menu-dark"
+            aria-labelledby="dropdownMenuButton1"
+          >
+            <li *ngIf="user === undefined">
+              <p class="dropdown-item" routerLink="login">Login</p>
+            </li>
+            <li *ngIf="user !== undefined">
+              <p class="dropdown-item" routerLink="profile">Profile</p>
+            </li>
+            <li *ngIf="user !== undefined">
+              <p class="dropdown-item" (click)="logout()">Logout</p>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+<!-- Navbar End -->
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modal1"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modal1Label"
+  aria-hidden="true"
+  data-bs-backdrop="static"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal1Label">Add categorie</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-floating mb-3">
+          <input
+            [(ngModel)]="selectedCategorie.label"
+            type="email"
+            class="form-control"
+            id="floatingInput"
+          />
+          <label for="floatingInput">Categorie Name</label>
+        </div>
+        <div>
+          <p *ngIf="!validateCategorieLabel" class="text-danger mb-0">
+            Name required
+          </p>
+          <p *ngIf="!validateAddLabelExistence" class="text-danger mb-0">
+            Name already exist
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="close()"
+        >
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn no-hover-btn-subordinate bg-subordinate text-light"
+          (click)="save()"
+        >
+          Save changes
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modal2"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="modal2Label"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal2Label">Rename Categorie</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+          (click)="close()"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          (change)="extractCategorieLabel($event)"
+        >
+          <option selected>Select categorie</option>
+          <option *ngFor="let categorie of categories" [ngValue]="categorie">
+            {{ categorie.label }}
+          </option>
+        </select>
+        <div class="input-group flex-nowrap mt-3">
+          <span class="input-group-text" id="newName">New name</span>
+          <input
+            id="newName"
+            name="newName"
+            type="text"
+            class="form-control"
+            aria-label="Username"
+            aria-describedby="newName"
+            [(ngModel)]="newCategorieLabel"
+          />
+        </div>
+        <div>
+          <p *ngIf="!validateSelectCategorie" class="text-danger mb-0">
+            Select categorie
+          </p>
+          <p *ngIf="!validateNewCategorieLabel" class="text-danger mb-0">
+            New name required
+          </p>
+          <p *ngIf="!validateEditLabelExistence" class="text-danger mb-0">
+            Name already exist
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            (click)="close()"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            class="btn no-hover-btn-subordinate bg-subordinate text-light"
+            (click)="update()"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,185 @@
+<div>
+  <div class="container">
+    <div class="row">
+      <div class="card border-0 bg-subordinate text-main p-5 col-10 offset-1">
+        <h1 class="card-title pb-3 d-flex justify-content-between">
+          Add product
+          <div>
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              *ngIf="!validateExistence"
+            >
+              Product already exists
+            </button>
+            <button
+              class="btn btn-danger btn-sm ms-2"
+              *ngIf="!validateVariations"
+            >
+              Product Variations Error
+            </button>
+          </div>
+        </h1>
+        <form class="row">
+          <div class="col-6">
+            <label for="inputLabel" class="form-label"
+              >Label<button
+                class="btn btn-danger btn-sm ms-2"
+                *ngIf="!validateLabel"
+              >
+                Required
+              </button></label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="inputLabel"
+              [(ngModel)]="selectedProduct.label"
+              name="label"
+            />
+          </div>
+          <div class="col-6">
+            <label for="inputPrice" class="form-label"
+              >Price<button
+                class="btn btn-danger btn-sm ms-2"
+                *ngIf="!validatePrice"
+              >
+                Required
+              </button></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="inputPrice"
+              [(ngModel)]="selectedProduct.price"
+              name="price"
+            />
+          </div>
+          <div class="col-6 mt-2">
+            <label for="inputStock" class="form-label"
+              >Stock<button
+                class="btn btn-danger btn-sm ms-2"
+                *ngIf="!validateStock"
+              >
+                Required
+              </button></label
+            >
+            <input
+              type="number"
+              class="form-control"
+              id="inputStock"
+              [(ngModel)]="selectedProduct.stock"
+              name="stock"
+            />
+          </div>
+          <div class="col-6 mt-2">
+            <label for="categorieChooser" class="form-label"
+              >Categorie<button
+                class="btn btn-danger btn-sm ms-2"
+                *ngIf="!validateCategorie"
+              >
+                Required
+              </button></label
+            >
+            <select
+              [(ngModel)]="selectedProduct.categorie"
+              id="categorieChooser"
+              class="form-select"
+              aria-label="Default select example"
+              name="categorie"
+            >
+              <option
+                *ngFor="let categorie of categories"
+                [ngValue]="categorie"
+              >
+                {{ categorie.label }}
+              </option>
+            </select>
+          </div>
+          <div class="col-12 mt-2">
+            <label for="inputDescription" class="form-label"
+              >Description<button
+                class="btn btn-danger btn-sm ms-2"
+                *ngIf="!validateDescription"
+              >
+                Required
+              </button></label
+            >
+            <textarea
+              class="form-control"
+              id="inputDescription"
+              rows="3"
+              [(ngModel)]="selectedProduct.description"
+              name="description"
+            ></textarea>
+          </div>
+          <div
+            *ngFor="let variation of variations; let i = index"
+            class="col-12 container mt-2"
+          >
+            <div class="row">
+              <div class="col-6">
+                <label [for]="variation.type + i" class="form-label"
+                  >Type</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [id]="variation.type + i"
+                  [(ngModel)]="variation.type"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+              <div class="col-6">
+                <label [for]="variation.value + i" class="form-label"
+                  >Value</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [id]="variation.value + i"
+                  [(ngModel)]="variation.value"
+                  [ngModelOptions]="{ standalone: true }"
+                />
+              </div>
+            </div>
+          </div>
+          <div class="col-12 d-flex justify-content-between mt-2">
+            <div class="col-6">
+              <label for="inputImage" class="form-label"
+                >Upload Image<button
+                  class="btn btn-danger btn-sm ms-2"
+                  *ngIf="!validateImage"
+                >
+                  Required
+                </button></label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="inputImage"
+                (change)="onFileSelected($event)"
+                name="image"
+              />
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-warning mt-4 me-3"
+                (click)="add()"
+              >
+                Add variation
+              </button>
+              <button
+                type="submit"
+                class="btn btn-success mt-4"
+                (click)="save()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

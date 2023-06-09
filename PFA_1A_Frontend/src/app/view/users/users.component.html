@@ -1,0 +1,112 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body ps-2 d-flex justify-content-between">
+          <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
+          <div class="d-flex">
+            <input
+              class="form-control rounded-0 rounded-start"
+              style="width: 200px"
+              name="search"
+              type="search"
+              placeholder="Username"
+              aria-label="Search"
+              [(ngModel)]="searchUsername"
+            /><button
+              class="border-0 bg-subordinate text-light no-hover-btn-subordinate me-1 rounded-0 rounded-end"
+              type="submit"
+              (click)="searchByUsername()"
+            >
+              Search
+            </button>
+            <div class="d-flex">
+              <input
+                class="form-control rounded-0 rounded-start"
+                style="width: 200px"
+                name="search"
+                type="search"
+                placeholder="Email"
+                aria-label="Search"
+                [(ngModel)]="searchEmail"
+              /><button
+                class="border-0 bg-subordinate text-light no-hover-btn-subordinate me-1 rounded-0 rounded-end"
+                type="submit"
+                (click)="searchByEmail()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table no-wrap user-table mb-0">
+            <thead>
+              <tr>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Full Name
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Username
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Email
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Added
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Total Bought
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Manage
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users">
+                <td>
+                  <span>
+                    {{ user.firstName + " " + user.lastName }}
+                  </span>
+                </td>
+                <td>
+                  <span>{{ user.username }}</span>
+                </td>
+                <td>
+                  <span>{{ user.email }}</span>
+                </td>
+                <td>
+                  <span>{{
+                    this.datePipe.transform(user.birthDate, "yyyy-MM-dd")
+                  }}</span
+                  ><br />
+                </td>
+                <td>
+                  <span class="text-success">${{ user.totalBought }}</span
+                  ><br />
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-outline-success"
+                    (click)="viewOrders(user.username)"
+                  >
+                    <i class="fa fa-eye"></i>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger ms-2"
+                    (click)="deleteUser(user.username)"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

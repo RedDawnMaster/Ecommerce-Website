@@ -1,0 +1,230 @@
+<section class="h-100 h-custom" style="background-color: #eee">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <div class="card-body p-4">
+            <div class="row">
+              <div class="col-lg-7">
+                <h5 class="mb-3 d-flex justify-content-between">
+                  <a
+                    class="text-body"
+                    style="text-decoration: none"
+                    routerLink="/"
+                    ><i class="fa fa-arrow-left me-2"></i>Continue shopping</a
+                  >
+                  <p *ngIf="!validateStock" class="text-danger">{{ errors }}</p>
+                  <button
+                    class="btn btn-outline-danger me-3"
+                    (click)="deleteCartItems()"
+                  >
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </h5>
+                <hr />
+
+                <div
+                  class="d-flex justify-content-between align-items-center mb-4"
+                >
+                  <div>
+                    <p class="mb-0">
+                      You have {{ cart.cartItems.length }} items in your cart
+                    </p>
+                  </div>
+                </div>
+
+                <div class="card mb-3" *ngFor="let cartItem of cart.cartItems">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <div>
+                          <img
+                            [src]="cartItem.product.image"
+                            class="img-fluid rounded-3"
+                            alt="Shopping item"
+                            style="width: 65px"
+                          />
+                        </div>
+                        <div class="ms-3">
+                          <h5>{{ cartItem.product.label }}</h5>
+                          <p class="small mb-0">{{ cartItem.reference }}</p>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row align-items-center">
+                        <div style="width: 50px">
+                          <h5 class="fw-normal mb-0">
+                            {{ cartItem.quantity }}
+                          </h5>
+                        </div>
+                        <div style="width: 80px">
+                          <h5 class="mb-0 text-success">
+                            ${{ cartItem.quantity * cartItem.product.price }}
+                          </h5>
+                        </div>
+                        <button
+                          class="btn btn-outline-danger"
+                          (click)="deleteCartItem(cartItem.reference)"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="card bg-subordinate text-main rounded-3">
+                  <div class="card-body">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-4"
+                    >
+                      <h5 class="mb-0">Card details</h5>
+                    </div>
+
+                    <p class="small mb-2">Card type</p>
+                    <a type="submit" class="text-white"
+                      ><i class="fa fa-cc-mastercard fa-2x me-2"></i
+                    ></a>
+                    <a type="submit" class="text-white"
+                      ><i class="fa fa-cc-visa fa-2x me-2"></i
+                    ></a>
+                    <a type="submit" class="text-white"
+                      ><i class="fa fa-cc-amex fa-2x me-2"></i
+                    ></a>
+                    <a type="submit" class="text-white"
+                      ><i class="fa fa-cc-paypal fa-2x"></i
+                    ></a>
+
+                    <form class="mt-4">
+                      <div class="input-group mb-3">
+                        <span
+                          [ngStyle]="{
+                            'border-color': !validateCardHolder ? 'red' : ''
+                          }"
+                          class="input-group-text"
+                          id="cardHolderSpan"
+                          >Card holder</span
+                        >
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateCardHolder ? 'red' : ''
+                          }"
+                          [(ngModel)]="cardHolder"
+                          id="cardHolder"
+                          name="cardHolder"
+                          type="text"
+                          class="form-control"
+                          aria-label="cardHolder"
+                          aria-describedby="cardHolder"
+                        />
+                      </div>
+
+                      <div class="input-group mb-3">
+                        <span
+                          [ngStyle]="{
+                            'border-color': !validateCardNumber ? 'red' : ''
+                          }"
+                          class="input-group-text"
+                          id="cardNumberSpan"
+                          >Card number</span
+                        >
+                        <input
+                          [ngStyle]="{
+                            'border-color': !validateCardNumber ? 'red' : ''
+                          }"
+                          [(ngModel)]="cardNumber"
+                          id="cardNumber"
+                          name="cardNumber"
+                          type="number"
+                          class="form-control"
+                          aria-label="cardNumber"
+                          aria-describedby="cardNumber"
+                          minlength="16"
+                          maxlength="16"
+                        />
+                      </div>
+                      <div class="row mb-4">
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <span
+                              [ngStyle]="{
+                                'border-color': !validateExpiration ? 'red' : ''
+                              }"
+                              class="input-group-text"
+                              id="expirationSpan"
+                              >Expiration</span
+                            >
+                            <input
+                              [ngStyle]="{
+                                'border-color': !validateExpiration ? 'red' : ''
+                              }"
+                              [(ngModel)]="expiration"
+                              id="expiration"
+                              name="expiration"
+                              type="date"
+                              class="form-control"
+                              aria-label="expiration"
+                              aria-describedby="expiration"
+                              placeholder="MM/YYYY"
+                              minlength="7"
+                              maxlength="7"
+                            />
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="input-group mb-3">
+                            <span
+                              [ngStyle]="{
+                                'border-color': !validateCvv ? 'red' : ''
+                              }"
+                              class="input-group-text"
+                              id="cvvSpan"
+                              >CVV</span
+                            >
+                            <input
+                              [ngStyle]="{
+                                'border-color': !validateCvv ? 'red' : ''
+                              }"
+                              [(ngModel)]="cvv"
+                              id="cvv"
+                              name="cvv"
+                              type="number"
+                              class="form-control"
+                              aria-label="cvv"
+                              aria-describedby="cvv"
+                              placeholder="&#9679;&#9679;&#9679;"
+                              minlength="3"
+                              maxlength="3"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                    <hr class="my-4" />
+                    <div class="d-flex justify-content-between mb-4">
+                      <p class="mb-2">Total(Incl. taxes)</p>
+                      <p class="mb-2">${{ cart.total }}</p>
+                    </div>
+
+                    <button
+                      type="button"
+                      class="btn btn-success btn-block btn-lg float-end"
+                      (click)="checkout()"
+                    >
+                      <div class="d-flex justify-content-between">
+                        <span
+                          >Checkout <i class="fa fa-arrow-right ms-2"></i
+                        ></span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

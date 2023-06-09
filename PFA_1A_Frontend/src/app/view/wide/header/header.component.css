@@ -1,0 +1,15 @@
+nav.linkColor div a {
+  color: white;
+}
+
+nav.linkColor div a.active {
+  color: white;
+}
+
+nav.linkColor div a:hover {
+  color: #b9eddd;
+}
+
+.no-hover-categorie:hover {
+  background-color: #b9eddd;
+}

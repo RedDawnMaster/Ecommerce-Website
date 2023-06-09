@@ -1,0 +1,7 @@
+<ng-container *ngIf="checkLink()">
+  <app-header></app-header>
+</ng-container>
+<router-outlet></router-outlet>
+<ng-container *ngIf="checkLink()">
+  <app-footer></app-footer>
+</ng-container>

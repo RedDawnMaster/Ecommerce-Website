@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body ps-2">
+          <h5 class="card-title text-uppercase mb-0">Orders</h5>
+        </div>
+        <div class="table-responsive">
+          <table class="table no-wrap user-table mb-0">
+            <thead>
+              <tr>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Reference
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Total
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Order date
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Delivery date
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  Delivered
+                </th>
+                <th scope="col" class="border-0 text-uppercase font-medium">
+                  View
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders">
+                <td>
+                  <span>
+                    {{ order.reference }}
+                  </span>
+                </td>
+                <td>
+                  <span class="text-success">${{ order.total }}</span>
+                </td>
+                <td>
+                  <span>{{
+                    this.datePipe.transform(order.orderDate, "yyyy-MM-dd")
+                  }}</span
+                  ><br />
+                </td>
+                <td>
+                  <span>{{
+                    this.datePipe.transform(order.deliveryDate, "yyyy-MM-dd")
+                  }}</span
+                  ><br />
+                </td>
+                <td>
+                  <span *ngIf="order.delivered">Yes</span>
+                  <span *ngIf="!order.delivered">No</span>
+                </td>
+                <td>
+                  <button class="btn btn-primary" (click)="viewOrder(order)">
+                    <i class="fa fa-arrow-right"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

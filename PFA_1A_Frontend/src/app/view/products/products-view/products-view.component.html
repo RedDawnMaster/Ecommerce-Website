@@ -1,0 +1,237 @@
+<div class="container mt-5 mb-5">
+  <div class="card">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <div class="d-flex flex-column justify-content-center">
+          <div class="product-img position-relative overflow-hidden">
+            <img
+              class="img-fluid w-100"
+              [src]="selectedProduct.image"
+              alt=""
+              style="border: 2px solid"
+            />
+            <div class="product-action"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ps-3 right-side">
+          <div class="d-flex justify-content-between">
+            <div class="d-flex flex-column text-uppercase">
+              <h3>{{ selectedProduct.label }}</h3>
+              <div class="d-flex content">
+                <p
+                  class="text-uppercase"
+                  style="font-size: 15px; font-weight: bold"
+                >
+                  Stock :
+                  {{ selectedProduct.stock }}
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div class="d-flex flex-row align-items-center">
+                <ng-container
+                  *ngFor="let _ of getYellowStarsArray(selectedProduct.stars)"
+                >
+                  <small class="fa fa-star text-warning me-1"></small>
+                </ng-container>
+                <ng-container
+                  *ngFor="let _ of getEmptyStarsArray(selectedProduct.stars)"
+                >
+                  <small class="fa fa-star text-secondary me-1"></small>
+                </ng-container>
+                ({{ selectedProduct.evaluationCount }})
+              </div>
+              <div class="d-flex mt-2 content">
+                <p
+                  class="text-uppercase"
+                  style="font-size: 15px; font-weight: bold"
+                >
+                  Number of orders
+                  {{ selectedProduct.numberOfOrders }}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex mt-2 content">
+            <p style="font-size: 15px">
+              {{ selectedProduct.description }}
+            </p>
+          </div>
+          <div
+            *ngFor="
+              let variationGroup of selectedProduct.productVariations
+                | groupBy : 'type'
+            "
+          >
+            <button
+              class="rounded border-0 bg-subordinate text-main text-uppercase mt-3"
+            >
+              {{ variationGroup.key }}
+            </button>
+            <div>
+              <label
+                *ngFor="let variation of variationGroup.values"
+                class="text-uppercase me-3"
+                [for]="variation.type + variation.value"
+              >
+                <input
+                  [id]="variation.type + variation.value"
+                  type="radio"
+                  [value]="variation.value"
+                  [name]="variationGroup.key"
+                  [checked]="isSelected(variation)"
+                  (change)="selectVariation(variation)"
+                />
+                {{ variation.value }}
+              </label>
+            </div>
+          </div>
+          <div>
+            <button
+              class="rounded border-0 bg-subordinate text-main text-uppercase mt-3"
+            >
+              quantity
+            </button>
+            <div class="form-outline mt-2 w-25 d-flex">
+              <input
+                type="number"
+                id="quantity"
+                class="form-control"
+                [(ngModel)]="selectedCartItem.quantity"
+              />
+            </div>
+            <p class="text-danger" *ngIf="!validateQuantity">
+              Invalid quantity or insufficient stock
+            </p>
+          </div>
+          <h3 class="text-success mt-3">
+            ${{ selectedProduct.price * selectedCartItem.quantity }}
+          </h3>
+          <div class="buttons d-flex flex-row mt-2">
+            <button class="btn btn-dark" (click)="addToCart()">
+              Add to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="card col-12">
+        <div class="card-title bg-subordinate text-center position-relative">
+          <h1 class="ms-2 text-main d-inline">Reviews</h1>
+          <button
+            *ngIf="user !== undefined && user.role !== 'ADMIN' && check()"
+            class="bg-main rounded text-uppercase no-hover-btn-main text-subordinate position-absolute"
+            style="right: 20px; top: 10px"
+            (click)="write()"
+          >
+            Write review
+          </button>
+        </div>
+        <div class="d-flex justify-content-end">
+          <input
+            class="form-control rounded-0 rounded-start"
+            style="width: 200px"
+            name="search"
+            type="search"
+            placeholder="Username"
+            aria-label="Search"
+            [(ngModel)]="searchUsername"
+          /><button
+            class="border-0 bg-subordinate text-light no-hover-btn-subordinate me-1 rounded-0 rounded-end"
+            type="submit"
+            (click)="searchReview()"
+          >
+            Search
+          </button>
+        </div>
+        <div class="card-body">
+          <div *ngIf="writeReview">
+            <div class="form-floating">
+              <textarea
+                class="form-control"
+                id="writeReview"
+                style="height: 100px"
+                [(ngModel)]="selectedReview.description"
+              ></textarea>
+              <label for="writeReview">Review</label>
+              <p *ngif="!validateReview" class="text-danger">
+                Comment cannot be empty
+              </p>
+              <ul
+                class="list-inline rating-list"
+                *ngFor="let star of stars"
+                style="display: inline-block"
+              >
+                <li
+                  (click)="countStar(star)"
+                  [ngClass]="{ selected: star <= selectedValue }"
+                >
+                  <i class="fa fa-star"></i>
+                </li>
+              </ul>
+              <button
+                class="btn btn-primary float-end mt-2"
+                (click)="saveReview()"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+          <h1 *ngIf="reviews.length === 0" class="text-center">
+            No reviews yet
+          </h1>
+          <div *ngFor="let review of reviews" class="mt-2">
+            <div class="form-floating">
+              <button class="btn btn-primary mb-1">
+                {{ review.user.username }}
+              </button>
+              <button
+                *ngIf="
+                  user !== undefined && user.username === review.user.username
+                "
+                class="btn btn-outline-danger mb-1 float-end"
+                (click)="deleteReview(user.username, selectedProduct.label)"
+              >
+                Delete
+              </button>
+              <button
+                *ngIf="
+                  user !== undefined && user.username === review.user.username
+                "
+                class="btn btn-outline-warning mb-1 float-end me-2"
+                (click)="updateReview(review)"
+              >
+                Update
+              </button>
+              <div class="d-flex flex-row align-items-center mt-1 mb-1">
+                <ng-container
+                  *ngFor="let _ of getYellowStarsArray(review.stars)"
+                >
+                  <small class="fa fa-star text-warning me-1"></small>
+                </ng-container>
+                <ng-container
+                  *ngFor="let _ of getEmptyStarsArray(review.stars)"
+                >
+                  <small class="fa fa-star text-secondary me-1"></small>
+                </ng-container>
+              </div>
+              <textarea
+                [disabled]="
+                  user === undefined || user.username !== review.user.username
+                "
+                class="form-control"
+                [id]="review.id"
+                style="height: 100px"
+                [(ngModel)]="review.description"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

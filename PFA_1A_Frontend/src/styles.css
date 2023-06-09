@@ -1,0 +1,40 @@
+/* You can add global styles to this file, and also import other style files */
+.text-subordinate {
+  /*gray*/
+  color: #393053;
+}
+
+.bg-subordinate {
+  background-color: #393053;
+}
+
+.text-main {
+  /*warning*/
+  color: #b9eddd;
+}
+
+.bg-main {
+  background-color: #b9eddd;
+}
+
+.no-hover-btn-subordinate:hover {
+  background-color: #393053;
+  opacity: 0.9;
+}
+
+.no-hover-btn-main:hover {
+  color: #393053;
+  background-color: #b9eddd;
+  opacity: 0.9;
+}
+
+.no-hover-btn-subordinate:active {
+  background-color: #393053;
+  opacity: 0.5;
+}
+
+.no-hover-btn-main:active {
+  color: #393053;
+  background-color: #b9eddd;
+  opacity: 0.5;
+}
