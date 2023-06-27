@@ -32,6 +32,7 @@ To set up the frontend, follow these steps:
 3. Run npm install to install the required dependencies.
 4. Update the API endpoint in the Angular service files to match the backend server address.
 5. Run ng serve to start the frontend development server.
+
 Note: Due to time constraints, full implementation of product images is pending , a workaround has been implemented. Place the product images in src/assets/img/products folder in the frontend directory before uploading a product's image when adding or updating a product.
 
 # Usage
