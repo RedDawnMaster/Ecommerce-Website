@@ -21,13 +21,13 @@ public class CartController {
         return cartService.findByUserUsername(username);
     }
 
+    @GetMapping("/checkout/{username}")
+    public String checkout(@PathVariable String username) {
+        return cartService.checkout(username);
+    }
+
     @GetMapping("/getCartTotal/{id}")
     public double getCartTotal(@PathVariable Long id) {
         return cartService.getCartTotal(id);
-    }
-
-    @PostMapping("/{username}")
-    public String checkout(@PathVariable String username) {
-        return cartService.checkout(username);
     }
 }
