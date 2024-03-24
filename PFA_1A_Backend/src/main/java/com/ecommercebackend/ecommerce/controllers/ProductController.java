@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @GetMapping("/countByCategorieLabel/{label}")
-    int countByCategorieLabel(@PathVariable String label) {
+    public int countByCategorieLabel(@PathVariable String label) {
         return this.productService.countByCategorieLabel(label);
     }
 
